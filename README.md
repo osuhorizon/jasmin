@@ -1,7 +1,7 @@
 # jasmin, a blazing fast implementation of the RealistikPanel in node!
 The modern admin panel for osu! private servers!
 
-![Dashboard](https://i.imgur.com/GidGUqS.png)
+![Dashboard](https://x.catboy.best/wss8Q2w.png)
 
 It uses libraries such as express for web and is designed to interface with the Ripple stack (mainly with SQL and Redis).
 
