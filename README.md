@@ -38,11 +38,11 @@ jasper has been tested on a VPS running Ubuntu, Python 3.6.9 while using the Ain
 
 # Screenshots
 Dashboard
-![Dashboard](https://i.imgur.com/GidGUqS.png)
+![Dashboard](https://x.catboy.best/nGVJO30.png)
 User List
 ![Beatmap Ranking](https://i.imgur.com/lWcGDpi.png)
 User Edit
-![User Edit](https://i.imgur.com/j1VnY7p.png)
+![User Edit](https://x.catboy.best/t0Jb4nm.png
 Beatmap Ranking
 ![Beatmap Ranking](https://i.imgur.com/wtwHn6E.png)
 Bancho Settings
@@ -50,7 +50,7 @@ Bancho Settings
 System Settings
 ![System Settings](https://i.imgur.com/dGrQq8Q.png)
 Admin Logs
-![Admin Logs](https://i.imgur.com/zArbrB7.png)
+![Admin Logs](https://x.catboy.best/wss8Q2w.png)
 Privilege Groups
 ![Admin Logs](https://i.imgur.com/P310vDI.png)
 Clan Management
