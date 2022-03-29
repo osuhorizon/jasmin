@@ -42,7 +42,7 @@ Dashboard
 User List
 ![Beatmap Ranking](https://i.imgur.com/lWcGDpi.png)
 User Edit
-![User Edit](https://x.catboy.best/t0Jb4nm.png
+![User Edit](https://x.catboy.best/t0Jb4nm.png)
 Beatmap Ranking
 ![Beatmap Ranking](https://i.imgur.com/wtwHn6E.png)
 Bancho Settings
@@ -57,4 +57,5 @@ Clan Management
 ![Clan Management](https://i.imgur.com/0VomZxS.png)
 
 # Friendly Reminder!
+This design is literally a clone of RealistikPanel. Thanks to RealistikDash for letting me use his design!
 Remember kids, always finish your day by going to [this link](https://c.ussr.pl)!
