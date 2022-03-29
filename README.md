@@ -34,7 +34,7 @@ Almost everything RAP has to offer and more!
 # Support
 To get help, report bugs or suggest features, feel free to either create a GitHub issue or contact **Nanoo#5095** on Discord and I will happily help you.
 
-jasper has been tested on a VPS running Ubuntu, Python 3.6.9 while using the Ainu database.
+jasmin has been tested on a VPS running Ubuntu, Python 3.6.9 while using the Ainu database.
 
 # Screenshots
 Dashboard
