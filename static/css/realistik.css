@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.icon {
+    margin-right: 20px;
+}
+.pptext {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.leftrem {
+    margin-left: 1rem;
+}
+
+.rightrem {
+    margin-right: 1rem;
+}
+
+.selectize-control {
+    height: 42px;
+    padding: 11px 12px;
+    padding: 0 !important;
+}
+
+/* Flags! */
+.nflag {
+    margin-right: 5px;
+    max-width: 20px;
+    position: relative;
+    top: -2px;
+}

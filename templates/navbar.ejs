@@ -1,0 +1,100 @@
+<div class="main-wrapper main-wrapper-1">
+    <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+                <li id="sidetoggle"><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                <li><a class="navbar-brand" href="/">Horizon</a></li>
+            </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user" aria-expanded="false">
+                    <img alt="Profile Picture" src="https://a.lemres.de/<%= session.user.id%>" class="rounded-circle mr-1">
+                    <div class="d-sm-none d-lg-inline-block">Hi, <%= session.user.username %>!</div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-title">Horizon</div>
+                    <a href="https://lemres.de/u/<%= session.user.id%>" class="dropdown-item has-icon">
+                        <i class="far fa-user"></i> Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/logout" class="dropdown-item has-icon text-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="main-sidebar sidebar-style-2" tabindex="1" style="overflow: hidden; outline: none;">
+        <aside id="sidebar-wrapper">
+            <div class="sidebar-brand">
+                <a href="/">Horizon</a>
+            </div>
+            <ul class="sidebar-menu" id="sidebar">
+                <li class="menu-header">Information</li>
+                <a href="/dashboard" class="nav-link AccessRAP"><i class="fas fa-tachometer-alt"></i><span> Dashboard</span></a>
+                <a href="/users/1" class="nav-link ManageUsers"><i class="fas fa-users"></i><span> Users</span></a>
+                <a href="/stats" class="nav-link ManageUsers"><i class="fas fa-chart-area"></i><span> Statistics</span></a>
+                <a href="/logs/1" class="nav-link ViewRAPLogs"><i class="fas fa-calendar"></i><span> Logs</span></a>
+                <a href="/console" class="nav-link RPErrorLogs"><i class="fas fa-terminal"></i><span> Console Logs</span></a>
+                <li class="menu-header">Actions</li>
+                <a href="/rank" class="nav-link" id="ManageBeatmaps"><i class="fas fa-trophy"></i><span> Beatmap Ranking</span></a>
+                <a href="/rankreq/1" class="nav-link" id="ManageBeatmaps"><i class="fas fa-award"></i><span> Beatmap Requests</span></a>
+                <a href="/bancho/settings" class="nav-link ManageSettings"><i class="fas fa-cogs"></i><span> Bancho Settings</span></a>
+                <a href="/system/settings" class="nav-link ManageSettings"><i class="fas fa-cog"></i><span> System Settings</span></a>
+                <a href="/badges" class="nav-link ManageSettings"><i class="fas fa-certificate"></i><span> Badges</span></a>
+                <a href="/privileges" class="nav-link ManagePrivileges"><i class="fas fa-check-circle"></i><span> Privileges</span></a>
+                <a href="/clans/1" class="nav-link ManageClans"><i class="fas fa-user-friends"></i><span> Manage Clans</span></a>
+                <li class="menu-header">Horizon</li>
+                <a href="/changelogs" class="nav-link AccessRAP"><i class="fas fa-exchange-alt"></i><span> Changelogs</span></a>
+                <a href="/admins" class="nav-link AccessRAP"><i class="fas fa-user-cog"></i><span> Admins</span></a>
+                    </span></a>
+                <a href="{{ config['GitHubRepo'] }}" class="nav-link" target="_blank"><i class="fab fa-github-alt"></i><span> Source Code</span></a>
+            </ul>
+        </aside>
+    </div>
+    <!-- <div class="main-content" style="min-height: 810px;">
+        <section class="section">
+            {% if data["Alert"] %}
+            <div class="alert alert-dark alert-has-icon">
+                <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Alert!</div>
+                    {{ data["Alert"] }}
+                </div>
+            </div>
+            {% endif %} 
+            {% if success %}
+            <div class="alert alert-success alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ success|safe }}
+                </div>
+            </div>
+            {% endif %}
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ error|safe }}
+                </div>
+            </div>
+            {% endif %}
+            {% if info %}
+            <div class="alert alert-primary alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ info|safe }}
+                </div>
+            </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </section>
+    </div> -->
+</div>

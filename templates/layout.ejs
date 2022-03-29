@@ -1,0 +1,21 @@
+<html class="h-100" dir="ltr" lang="en">
+    <head>
+        <%- include('head') %>
+    </head>
+
+    <body>
+        <% if(!login && !error){ %>
+            <%- include('navbar') %> 
+        <% } %>
+    <div class="main-content">
+        <%- body %>
+    </div>
+    </body>
+
+    <footer>
+        <% if(!error){ %>
+            <%- include('footer') %>
+        <% } %>
+    </footer>
+
+</html>
