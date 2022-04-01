@@ -33,6 +33,16 @@ module.exports = {
             });
         })
     },
+
+    prepared : async function(query, array){
+        return new Promise((resolve, reject) => {
+            const sql = mysql.format(query, array)
+            con.query(sql, (err, result) => {
+                if(err) reject(err)
+                resolve(result)
+            })
+        })
+    },
     
     get : async function(key){
         return await redis.get(key);

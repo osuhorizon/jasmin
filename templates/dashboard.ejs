@@ -46,6 +46,27 @@
     </div>
 </div>
 <p></p>
+<div class="buttons" id="statuses">
+    <div class="btn btn-<%= BanchoStatus ? "success" : "danger"%>">
+        <div>
+            <h3><%= BanchoStatus ? "Online" : "Offline"%></h3>
+        </div>
+        <div>Bancho</div>
+    </div>
+    <div class="btn btn-<%= LetsStatus ? "success" : "danger"%>">
+        <div>
+            <h3><%= LetsStatus ? "Online" : "Offline"%></h3>
+        </div>
+        <div>LETS</div>
+    </div>
+    <div class="btn btn-<%= APIStatus ? "success" : "danger"%>">
+        <div>
+            <h3><%= APIStatus ? "Online" : "Offline"%></h3>
+        </div>
+        <div>API</div>
+    </div>
+</div>
+<p></p>
 <div class="row">
     <div class="col-12 col-md-6 col-lg-6">
         <div class="card">
@@ -75,7 +96,7 @@
                     This beatmap has a playcount of <b><%= mostplayed.playcount%></b>
                 </p>
                 <div class="article-cta">
-                    <a href="https://lemres.deb/<%= mostplayed.beatmap_id%>" class="btn btn-primary">View Map</a>
+                    <a href="https://lemres.de/b/<%= mostplayed.beatmap_id%>" class="btn btn-primary">View Map</a>
                 </div>
             </div>
         </article>

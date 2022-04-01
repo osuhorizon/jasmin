@@ -22,7 +22,7 @@
         <img alt="image" src="https://a.lemres.de/<%= user.id %>" class="rounded-circle mr-1" style="width:100%; max-width:30px; max-height:30px;">
         <h4><b><%= user.username %></b> | </h4>
         <% if(user.current_status != "Offline"){ %>
-        <span style="color: #32a852;">● Online</span>
+        <span style="color: #32a852;">● Online | <%= user.current_status %></span>
         <% } else { %>
         <span style="color: #eb4034;">● Offline</span>
         <% } %>
@@ -36,7 +36,7 @@
         <% } else { %>
         <b style="color: #eb4034;"><%= privileges.find(privilege => privilege.privileges == user.privileges ).name %></b>
         <% } %>
-        <% if(user.privileges & 4 ){ %>
+        <% if(server.checkPermissionSync(user.privileges, permissions.UserDonor)){ %>
         <br>
         <span style="color: #e8b923;">Their Donor rank expires <b><%= moment.unix(user.donor_expire).fromNow() %></b>.</span>
         <% } %>
@@ -44,9 +44,9 @@
         <br>
         <span style="color: #eb4034;">They are currently silenced for the reason: <b><% user.silence_reason %></b>. They will be unsilenced <%= moment.unix(user.silence_end).fromNow() %></b>.</span>
         <% } %>
-        <% if(!user.privileges & 1){ %> 
+        <% if(!server.checkPermissionSync(user.privileges, permissions.UserNormal) || !server.checkPermissionSync(user.privileges, permissions.UserPublic)){ %> 
         <br>
-        <span style="color: #eb4034;">They were banned <%= moment.unix(user.ban_datetime).fromNow() %> </span>
+        <span style="color: #eb4034;">They were restricted <%= moment.unix(user.ban_datetime).fromNow() %> </span>
         <% } %>
     </div>
     <div class="card-footer">
@@ -145,7 +145,7 @@
         <p></p>
         <div class="buttons">
             <a href="/users/iplookup/<%= user.ip %>" class="btn btn-success">IP Lookup</a>
-            <a href="/changepass/<%= user.id %>" class="btn btn-warning">Change Password</a>
+            <a href="/users/<%= user.id %>/password" class="btn btn-warning">Change Password</a>
             <a href="/donoraward/<%= user.id %>" class="btn btn-warning">Award Donor</a>
             <% if(user.privileges & 4){ %>
             <a href="/donorremove/<%= user.id %>" class="btn btn-warning">Remove Donor</a>
@@ -158,18 +158,22 @@
             <a href="/actions/hwid/<%= user.id %>" class="btn btn-danger" id="hwid">Clear HWID</a>
             <a href="/action/confirm/delete/<%= user.id %>" class="btn btn-danger", id="delete">Delete Account</a>
             <a href="/actions/kick/<%= user.id %>" class="btn btn-warning" id="kick">Kick User</a>
-            {% if config["HasRelax"] or config["HasAutopilot"] %}
+            <div>
+            <% if(config.relax || config.auto || config.v2){ %>
             <a href="/actions/wipe/<%= user.id %>" class="btn btn-danger" id="wipe">Full Wipe</a>
+            <% } %>
             <a href="/actions/wipevn/<%= user.id %>" class="btn btn-danger" id="wipe">Wipe Vanilla</a>
-            {% else %}
-            <a href="/actions/wipe/<%= user.id %>" class="btn btn-danger" id="wipe">Wipe</a>
-            {% endif %}
-            {% if config["HasRelax"] %}
+
+            <% if(config.relax){ %>
             <a href="/actions/wiperx/<%= user.id %>" class="btn btn-danger" id="wipe">Wipe Relax</a>
-            {% endif %}
-            {% if config["HasAutopilot"] %}
-            <a href="/actions/wipeap/<%= user.id %>" class="btn btn-danger" id="wipe">Wipe Autopilot</a>
-            {% endif %}
+            <% } %>
+            <% if(config.auto){ %>
+            <a href="/actions/wipeap/<%= user.id %>" class="btn btn-danger" id="wipe">Wipe Auto</a>
+            <% } %>
+            <% if(config.v2){ %>
+            <a href="/actions/wipev2/<%= user.id %>" class="btn btn-danger" id="wipe">Wipe V2</a>
+            <% } %>
+        </div>
         </div>
     </div>
     <div class="card-footer">

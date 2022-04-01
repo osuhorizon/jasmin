@@ -7,9 +7,20 @@
         <% if(!login && !error){ %>
             <%- include('navbar') %> 
         <% } %>
-    <div class="main-content">
+
+        <% if(!error){ %>
+        <div class="main-content">
+            <% if (alert) { %>
+                <div class="alert alert-<%= alert.type %>" role="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                    <%= alert.message %>
+                </div>
+            <% } %>
+            <%- body %>
+        </div>
+        <% } else { %>
         <%- body %>
-    </div>
+        <% } %>
     </body>
 
     <footer>
@@ -17,5 +28,4 @@
             <%- include('footer') %>
         <% } %>
     </footer>
-
 </html>

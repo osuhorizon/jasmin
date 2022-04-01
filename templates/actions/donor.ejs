@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header">
+        Award Donor to <%= user.username %> 
+        <% if(user.donor_expire > Math.round(Date.now() / 1000)){ %>
+            ●&nbsp;<span style="color: #e8b923;"> Expires <b> <%= moment.unix(user.donor_expire).fromNow() %></b>.</span>
+        <% } %>
+    </div>
+    <div class="card-body">
+        <form action="/actions/donor/award/<%= user.id %>" method="post">
+            <div class="form-group">
+                <label>User ID</label>
+                <input type="text" class="form-control" name="accid" value="<%= user.id %>" readonly>
+            </div>
+            <div class="form-group">
+                <label>Days Rewarded</label>
+                <input type="number" class="form-control" name="time" min="1" value="30">
+            </div>
+            <button class="btn btn-warning" type="submit" name="">Award!</button>
+        </form>
+    </div>
+</div>

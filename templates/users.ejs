@@ -70,7 +70,7 @@
                     <% } %>
                     <%= user.username %>
                 </td>
-                <td><%= user.privileges %></td>
+                <td><span class="badge badge-<%= privileges.find(privilege => privilege.privileges == user.privileges ).color %>"> <%= privileges.find(privilege => privilege.privileges == user.privileges ).name %> </span></td>
                 <td>
                     <% if(user.allowed){ %>
                         <span class="badge badge-success">Yes</span>
