@@ -1,1 +1,4 @@
 static/** linguist-vendored
+
+//Convert Embedded JavaScript (EJS) into JavaScript
+*.ejs linguist-language=JavaScript
