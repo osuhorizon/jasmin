@@ -5,6 +5,7 @@ const md5 = require('md5')
 const bcrypt = require('bcrypt')
 const config = require('../config.json')
 const errors = require('../helper/errors')
+const server = require('../helper/functions')
 
 const router = new Router()
 
@@ -34,15 +35,6 @@ router.get('/:id/edit', async function (req, res) {
 
 })
 
-router.get('/:id/donor', async function (req, res) {
-    let user = await request(`SELECT * FROM users WHERE id = '${req.params.id}'`)
-    if(user.length == 0) return alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
-
-    res.locals.title = 'Award Donator'
-
-    res.render('actions/donor', { user: user[0] })
-})
-
 router.post('/edit/:id', async function(req, res){
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
@@ -55,8 +47,8 @@ router.post('/edit/:id', async function(req, res){
 
     const badges = [];
 
-    for(var i = 1; i < 6; i++){
-        const badge = req.body[`Badge${i}`]
+    for(var i = 0; i < 6; i++){
+        const badge = req.body[`Badge${i+1}`]
         badges.push(badge)
     }
 
@@ -64,13 +56,13 @@ router.post('/edit/:id', async function(req, res){
 
     await prepared(`UPDATE users SET username = ?, username_safe = ?, privileges = ?, notes = ?, email = ? WHERE id = ?`,
      [username, username.toLowerCase().replaceAll(" ", "_"), privileges, notes, email, userid])
-    await prepared(`UPDATE users_stats SET current_status = ?, country = ?, userpage_content = ?, badges_shown = ? WHERE id = ?`,
+    await prepared(`UPDATE users_stats SET username = ?, username_aka = ?, country = ?, userpage_content = ?, badges_shown = ? WHERE id = ?`,
     [username, aka, country, userpage, badges_shown, userid])
     if(config.relax) await prepared(`UPDATE rx_stats SET username = ?, username_aka = ?, country = ? WHERE id = ?`,
     [username, aka, country,  userid])
     if(config.auto) await prepared(`UPDATE auto_stats SET username = ?, username_aka = ?, country = ? WHERE id = ?`,
     [username, aka, country, userid])
-    if(config.v2) await prepared(`UPDATE v2_stats SET username = ?, username_aka = ?, country = ?WHERE id = ?`,
+    if(config.v2) await prepared(`UPDATE v2_stats SET username = ?, username_aka = ?, country = ? WHERE id = ?`,
     [username, aka, country, userid])
 
     res.locals.alert = {
@@ -79,15 +71,6 @@ router.post('/edit/:id', async function(req, res){
     }
 
     res.redirect(`/users/${req.params.id}/edit`)
-})
-
-router.get('/:id/password', async function(req, res) {
-    const user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
-    if(user.length == 0) return alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
-
-    res.locals.title = 'Change Password'
-
-    res.render('actions/password', { user: user[0] })
 })
 
 module.exports = router

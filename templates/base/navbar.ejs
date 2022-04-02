@@ -33,23 +33,41 @@
             <ul class="sidebar-menu" id="sidebar">
                 <li class="menu-header">Information</li>
                 <a href="/dashboard" class="nav-link AccessRAP"><i class="fas fa-tachometer-alt"></i><span> Dashboard</span></a>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ManageUsers)){ %>
                 <a href="/users/1" class="nav-link ManageUsers"><i class="fas fa-users"></i><span> Users</span></a>
+                <a href="/clans/1" class="nav-link ManageUsers"><i class="fas fa-user-friends"></i><span> Clans</span></a>
                 <a href="/stats" class="nav-link ManageUsers"><i class="fas fa-chart-area"></i><span> Statistics</span></a>
+                <% } %>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ViewRAPLogs)){ %>
                 <a href="/logs/1" class="nav-link ViewRAPLogs"><i class="fas fa-calendar"></i><span> Logs</span></a>
+                <% } %>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ManageServers)){ %>
                 <a href="/console" class="nav-link RPErrorLogs"><i class="fas fa-terminal"></i><span> Console Logs</span></a>
+                <% } %>
                 <li class="menu-header">Actions</li>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ManageBeatmaps)){ %>
                 <a href="/rank" class="nav-link" id="ManageBeatmaps"><i class="fas fa-trophy"></i><span> Beatmap Ranking</span></a>
-                <a href="/rankreq/1" class="nav-link" id="ManageBeatmaps"><i class="fas fa-award"></i><span> Beatmap Requests</span></a>
-                <a href="/bancho/settings" class="nav-link ManageSettings"><i class="fas fa-cogs"></i><span> Bancho Settings</span></a>
-                <a href="/system/settings" class="nav-link ManageSettings"><i class="fas fa-cog"></i><span> System Settings</span></a>
-                <a href="/badges" class="nav-link ManageSettings"><i class="fas fa-certificate"></i><span> Badges</span></a>
+                <a href="/rank/req/1" class="nav-link" id="ManageBeatmaps"><i class="fas fa-award"></i><span> Beatmap Requests</span></a>
+                <% } %>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ManageServers)){ %>
+                <a href="/settings/bancho" class="nav-link ManageServers"><i class="fas fa-cogs"></i><span> Bancho Settings</span></a>
+                <% } %>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ManageSettings)){ %>
+                <a href="/settings/system" class="nav-link ManageSettings"><i class="fas fa-cog"></i><span> System Settings</span></a>
+                <% } %>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ManageBadges)){ %>
+                <a href="/badges" class="nav-link ManageBadges"><i class="fas fa-certificate"></i><span> Badges</span></a>
+                <% } %>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ManagePrivileges)){ %>
                 <a href="/privileges" class="nav-link ManagePrivileges"><i class="fas fa-check-circle"></i><span> Privileges</span></a>
-                <a href="/clans/1" class="nav-link ManageClans"><i class="fas fa-user-friends"></i><span> Manage Clans</span></a>
+                <% } %>
                 <li class="menu-header">Horizon</li>
-                <a href="/changelogs" class="nav-link AccessRAP"><i class="fas fa-exchange-alt"></i><span> Changelogs</span></a>
-                <a href="/admins" class="nav-link AccessRAP"><i class="fas fa-user-cog"></i><span> Admins</span></a>
+                <% if(server.checkPermissionSync(session.user.privileges, permissions.ViewRAPLogs)){ %>
+                <a href="/changelogs" class="nav-link ViewRAPLogs"><i class="fas fa-exchange-alt"></i><span> Changelogs</span></a>
+                <a href="/admins" class="nav-link ViewRAPLogs"><i class="fas fa-user-cog"></i><span> Admins</span></a>
+                <% } %>
                     </span></a>
-                <a href="{{ config['GitHubRepo'] }}" class="nav-link" target="_blank"><i class="fab fa-github-alt"></i><span> Source Code</span></a>
+                <a href="https://github.com/osuhorizon/jasmin" class="nav-link" target="_blank"><i class="fab fa-github-alt"></i><span> Source Code</span></a>
             </ul>
         </aside>
     </div>

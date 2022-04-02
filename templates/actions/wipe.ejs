@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-header">
+        Wipe Account for <%= user.username %>
+    </div>
+    <div class="card-body">
+        <form action="/actions/wipe/<%= user.id %>" method="post">
+            <div class="form-group">
+                <label>User ID</label>
+                <input type="text" class="form-control" name="accid" value="<%= user.id %>" readonly>
+                <br>
+                <label>Gamemode</label>
+                <select name="mod" class="form-control" id="mod">
+                <option value="-1" selected>All</option>
+                <option value="0">Vanilla</option>
+                <% if(config.relax){ %>
+                <option value="1">Relax</option>
+                <% } %>
+                <% if(config.auto){ %>
+                <option value="2">AutoPilot</option>
+                <% } %>
+                <% if(config.v2){ %>
+                <option value="3">ScoreV2</option>
+                <% } %>
+                </select>
+                <br>
+                <label>Mode</label>
+                <select name="mods" class="form-control" id="mods">
+                    <option value="-1" selected>All</option>
+                    <option value="0">Standard</option>
+                    <option value="1">Taiko</option>
+                    <option value="2">Catch The Beat</option>
+                    <option value="3">Mania</option>
+                </select>
+            </div>
+            <button class="btn btn-danger" type="submit" name="">Change!</button>
+        </form>
+    </div>
+</div>

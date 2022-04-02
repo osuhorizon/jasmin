@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header">
+        <% banned = !server.checkPermissionSync(user.privileges, permissions.UserNormal + permissions.UserPublic) %>
+        <%= banned ? "Unrestict" : "Restrict" %> <%= user.username %> 
+        <% if(user.ban_datetime > 0){ %>
+            ●&nbsp;<span style="color: #ff6464;">Banned <b> <%= moment.unix(user.ban_datetime).fromNow() %></b>.</span>
+        <% } %>
+    </div>
+    <div class="card-body">
+        <form action="/actions/restrict/<%= user.id %>" method="post">
+            <div class="form-group">
+                <label>User ID</label>
+                <input type="text" class="form-control" name="accid" value="<%= user.id %>" readonly>
+            </div>
+            <div class="form-group">
+                <label>Reason</label>
+                <input type="text" class="form-control" name="reason" value="No Reason Provided">
+            </div>
+            <button class="btn btn-danger" type="submit" name=""><%= banned ? "Unban" : "Ban" %>!</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<h2 class="section-title">System Settings</h2>
+<p class="section-lead">Change the settings of your osu! server stack.</p>
+<div class="card">
+    <div class="card-header">
+        <h4>Settings</h4>
+    </div>
+    <div class="card-body">
+        <form action="/settings/system" method="post">
+            <div class="form-group">
+                <label>Maintenance Mode (website)</label>
+                <select class="form-control" name="webMaintenance">
+                    <option value=<%= settings.webMaintenance ? 1 : 0 %> selected><%- settings.webMaintenance ? "On" : "Off" %></option>
+                    <option value=<%= settings.webMaintenance ? 0 : 1 %>><%- settings.webMaintenance ? "Off" : "On" %></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Maintenance Mode (in-game)</label>
+                <select class="form-control" name="banchoMaintenance">
+                    <option value=<%= settings.banchoMaintenance ? 1 : 0 %> selected><%- settings.banchoMaintenance ? "On" : "Off" %></option>
+                    <option value=<%= settings.banchoMaintenance ? 0 : 1 %>><%- settings.banchoMaintenance ? "Off" : "On" %></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Registration</label>
+                    <select class="form-control" name="register">
+                        <option value=<%= settings.register ? 1 : 0 %> selected><%- settings.register ? "On" : "Off" %></option>
+                        <option value=<%= settings.register ? 0 : 1 %>><%- settings.register ? "Off" : "On" %></option>
+                    </select>
+            </div>
+            <div class="form-group">
+                <label>Global Alert (visible on all pages)</label>
+                <input type="text" class="form-control" name="globalAlert" value="<%= settings.globalAlert %>">
+            </div>
+            <div class="form-group">
+                <label>Home Alert (visible only on the home page)</label>
+                <input type="text" class="form-control" name="homeAlert" value="<%= settings.homeAlert %>">
+            </div>
+            <button class="btn btn-primary mr-1" type="submit" name="">Submit</button>
+        </form>
+    </div>
+    <div class="card-footer">
+        Horizon
+    </div>
+</div>

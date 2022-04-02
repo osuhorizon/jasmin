@@ -1,21 +1,16 @@
 <html class="h-100" dir="ltr" lang="en">
     <head>
-        <%- include('head') %>
+        <%- include('base/head') %>
     </head>
 
     <body>
         <% if(!login && !error){ %>
-            <%- include('navbar') %> 
+            <%- include('base/navbar') %> 
         <% } %>
 
         <% if(!error){ %>
         <div class="main-content">
-            <% if (alert) { %>
-                <div class="alert alert-<%= alert.type %>" role="alert">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
-                    <%= alert.message %>
-                </div>
-            <% } %>
+            <%- include('base/alert') %>
             <%- body %>
         </div>
         <% } else { %>
@@ -25,7 +20,7 @@
 
     <footer>
         <% if(!error){ %>
-            <%- include('footer') %>
+            <%- include('base/footer') %>
         <% } %>
     </footer>
 </html>

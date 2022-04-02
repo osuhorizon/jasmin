@@ -9,7 +9,7 @@ It uses libraries such as express for web and is designed to interface with the 
 
 I'm trying to re-code every feature that the RealistikPanel currently has into javascript.
 
-**I'm doing this project to learn some frontend and give people a chance of more maintainability*
+*I'm doing this project to learn some frontend and give people a chance of more maintainability*
 
 This project is now in work to be deployed as a full replacement to RAP.
 
@@ -18,8 +18,7 @@ Everyday tons of new features
 - Recent Plays
 - Common statistics and graphs (dashboard)
 - Logging in using osu! server accounts
-- Bancho Settings (viewing and editing) //to be done
-- System Settings (viewing and editing) //to be done
+- Bancho & System Settings (viewing and editing)
 - Beatmap Ranking (unranking, loving and ranking) //to be done
 - Discord Webhook (sends an embed whenever a map is ranked/unranked/loved) //to be done
 - RAP Log (viewing and logging)
@@ -40,15 +39,15 @@ jasmin has been tested on a VPS running Ubuntu, Python 3.6.9 while using the Ain
 Dashboard
 ![Dashboard](https://x.catboy.best/nGVJO30.png)
 User List
-![Beatmap Ranking](https://i.imgur.com/lWcGDpi.png)
+![User List](https://x.catboy.best/nWtTw3y.png)
 User Edit
 ![User Edit](https://x.catboy.best/t0Jb4nm.png)
 Beatmap Ranking
 ![Beatmap Ranking](https://i.imgur.com/wtwHn6E.png)
 Bancho Settings
-![Bancho Settings](https://i.imgur.com/kxmhkRr.png)
+![Bancho Settings](https://x.catboy.best/SqLiR06.png)
 System Settings
-![System Settings](https://i.imgur.com/dGrQq8Q.png)
+![System Settings](https://x.catboy.best/UURfdgM.png)
 Admin Logs
 ![Admin Logs](https://x.catboy.best/wss8Q2w.png)
 Privilege Groups
@@ -57,5 +56,4 @@ Clan Management
 ![Clan Management](https://i.imgur.com/0VomZxS.png)
 
 # Friendly Reminder!
-This design is literally a clone of RealistikPanel. Thanks to RealistikDash for letting me use his design!
-Remember kids, always finish your day by going to [this link](https://c.ussr.pl)!
+This design is literally a clone of RealistikPanel. Thanks to RealistikDash for letting me use his design and remember kids, always finish your day by going to [this link](https://c.ussr.pl)!

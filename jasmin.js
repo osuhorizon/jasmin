@@ -47,6 +47,7 @@ app.use(async (req, res, next) => {
 app.use('/auth', require('./router/authRouter')) //Authentication
 app.use('/users', require('./router/userRouter')) //Users
 app.use('/actions', require('./router/actionRouter')) //Actions
+app.use('/settings', require('./router/settingsRouter')) //Settings
 app.use('/errors', require('./router/errorRouter')) //Error Handler
 app.use('*/static', express.static(__dirname + '/static')); //Assets
 app.use('/', require('./router/mainRouter')); //Everything else

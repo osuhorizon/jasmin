@@ -18,17 +18,27 @@ router.get('/dashboard', async (req, res) => {
     const fetch = require('node-fetch')
     res.locals.title = 'Dashboard';
 
+    let banchoStatus = false;
+    let letsStatus = false;
+    let apiStatus = false;
+
     const [ BanchoRequest, LetsRequest, APIRequest ] = await Promise.all([
         fetch('https://c.lemres.de/api/v1/serverStatus'),
         fetch('https://lemres.de/letsapi/v1/status'),
         fetch('https://lemres.de/api/v1/ping')
     ])
 
-    const [ Bancho, Lets, API ] = await Promise.all([
-        BanchoRequest.json(),
-        LetsRequest.json(),
-        APIRequest.json()
-    ])
+    if(BanchoRequest.status == 200){
+        banchoStatus = true;
+    }
+
+    if(LetsRequest.status == 200){
+        letsStatus = true;
+    }
+
+    if(APIRequest.status == 200){
+        apiStatus = true;
+    }
 
     const data = {
         onlineUsers : await get("ripple:online_users"),
@@ -45,9 +55,9 @@ router.get('/dashboard', async (req, res) => {
         data,
         mostplayed : mostPlayed[0],
         plays : recentPlayed,
-        BanchoStatus : Bancho.result == 1,
-        LetsStatus : Lets.server_status == 1,
-        APIStatus : API.code == 200
+        BanchoStatus : banchoStatus,
+        LetsStatus : letsStatus,
+        APIStatus : apiStatus
     })
 })
 

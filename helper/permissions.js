@@ -24,4 +24,5 @@ module.exports = {
     TournamentStaff : 2 << 20,
     Caker : 2 << 21,
     ViewTopScores : 2 << 22,
+    FullPriv : (2 << 23) - 1
 }
