@@ -9,14 +9,6 @@ module.exports = {
         res.redirect(redirect)
     },
 
-    checkPermission : async function(privileges, privilege){
-        return (privileges & privilege) != 0
-    },
-
-    checkPermissionSync : function(privileges, privilege){
-        return (privileges & privilege) != 0
-    },
-
     addLog : async function(admin, message){
         await prepared(`INSERT INTO rap_logs (userid, text, datetime, through) VALUES (?, ?, ?, ?)`, 
         [admin, message, Math.round(Date.now() / 1000), 'Admin Panel'])

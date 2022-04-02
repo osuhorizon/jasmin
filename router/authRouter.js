@@ -16,9 +16,7 @@ router.post('/login', async function (req, res){
 
     const user = userCheck[0]
 
-    if(!await bcrypt.compare(md5(password), user.password_md5)){
-        return alert(req, res, 'danger', errors.PASSWORD_MISMATCH, '/login')
-    }
+    if(!await bcrypt.compare(md5(password), user.password_md5)) return alert(req, res, 'danger', errors.PASSWORD_MISMATCH, '/login')
 
     req.session.authenticated = true
     req.session.user = user
@@ -29,7 +27,7 @@ router.post('/login', async function (req, res){
 router.get('/logout', function (req, res) {
     req.session.authenticated = false;
     req.session.user = undefined;
-    return alert(req, res, 'success', 'Logged out', '/login')
+    alert(req, res, 'success', 'Logged out', '/login')
 })
 
 module.exports = router

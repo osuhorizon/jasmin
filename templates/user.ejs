@@ -15,9 +15,9 @@
     });
 </script>
 
-<% isDonator = server.checkPermissionSync(user.privileges, permissions.UserDonor) %>
-<% isRestricted = !server.checkPermissionSync(user.privileges, permissions.UserPublic) %>
-<% isBanned = !server.checkPermissionSync(user.privileges, permissions.UserNormal) %>
+<% isDonator = user.privileges & permissions.UserDonor %>
+<% isRestricted = !(user.privileges & permissions.UserPublic) %>
+<% isBanned = !(user.privileges & permissions.UserNormal) %>
 
 <h2 class="section-title">Edit <%= user.username %></h2>
 
@@ -97,13 +97,13 @@
                 <textarea type="text" class="form-control" name="userpage" rows=15><%= user.userpage_content %></textarea>
             </div>
             <div class="form-group">
-                <label>Privilege</label>
+                <label>Privileges</label>
                 <select name="privilege" class="form-control" id="privselect">
                     <% for(var i = 0; i < privileges.length; i++) { %>
                         <% const priv = privileges[i]%>
                         <% if(priv.privileges == user.privileges) { %>
                         <option value="<%= priv.privileges %>" selected><%= priv.name %></option>
-                        <% } else if(priv.privileges > user.privileges && (priv.name != "Pending" || priv.name == "Tournament Staff")){ %>
+                        <% } else if(priv.privileges > user.privileges) { %>
                         <option value="<%= priv.privileges %>" disabled><%= priv.name %></option>
                         <% } else { %>
                         <option value="<%= priv.privileges %>"><%= priv.name %></option>

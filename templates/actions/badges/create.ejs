@@ -1,0 +1,29 @@
+<h2 class="section-title">Create Badge</h2>
+<p class="section-lead">Create a new Badge!</p>
+<div class="card">
+    <div class="card-header">
+        <h4>Create Badge</b></h4>
+    </div>
+    <div class="card-body">
+        <form action="/badges/create/<%= id %>" method="post">
+            <div class="form-group">
+                <label>Badge ID</label>
+                <input type="text" class="form-control" name="badgeid" value="<%= id %>" readonly>
+            </div>
+            <div class="form-group">
+                <label>Badge Name</label>
+                <input type="text" class="form-control" name="name" minlength="1" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label>Badge Icon</label>
+                <input type="text" class="form-control" name="icon" placeholder="Icon">
+            </div>
+            <div class="buttons">
+                <button class="btn btn-primary mr-1" type="submit" name="">Create</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        Horizon
+    </div>
+</div>

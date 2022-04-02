@@ -1,0 +1,40 @@
+<h2 class="section-title">Badges</h2>
+<p class="section-lead">Modify or edit profile badges!</p>
+<div class="card">
+    <div class="card-header">
+        Badges
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Icon</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i = 1; i < badges.length; i++){%>
+                <% const badge = badges[i] %>
+                <tr>
+                    <td><%= badge.id %></td>
+                    <td><%= badge.name %></td>
+                    <td><i class="fa <%= badge.icon %> fa-2x"></i></td>
+                    <td>
+                        <div class="buttons">
+                            <a href="/badges/edit/<%= badge.id %>" class="btn btn-primary">Edit</a>
+                            <a href="/badges/delete/<%= badge.id %>" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <div class="buttons">
+            <a href="/badges/create" class="btn btn-success">Create Badge</a>
+        </div>
+    </div>
+</div>

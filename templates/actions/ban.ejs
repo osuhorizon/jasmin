@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <% banned = !server.checkPermissionSync(user.privileges, permissions.UserNormal + permissions.UserPublic) %>
+        <% banned = !(user.privileges & permissions.UserNormal + permissions.UserPublic) %>
         <%= banned ? "Unrestict" : "Restrict" %> <%= user.username %> 
         <% if(user.ban_datetime > 0){ %>
             ●&nbsp;<span style="color: #ff6464;">Banned <b> <%= moment.unix(user.ban_datetime).fromNow() %></b>.</span>

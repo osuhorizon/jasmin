@@ -14,7 +14,8 @@ router.use(async (req, res, next) => {
     next()
 })
 
-router.get('/password/:id', async function(req, res) {
+router.get('/password/:id', async function(req, res){
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, `/users/${req.params.id}/edit`)
     const user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
 
@@ -24,6 +25,7 @@ router.get('/password/:id', async function(req, res) {
 })
 
 router.post('/password/:id', async function (req, res){
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
 
@@ -38,6 +40,7 @@ router.post('/password/:id', async function (req, res){
 })
 
 router.get('/donor/award/:id', async function (req, res) {
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, `/users/${req.params.id}/edit`)
     let user = await request(`SELECT * FROM users WHERE id = '${req.params.id}'`)
     if(user.length == 0) return alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
 
@@ -47,6 +50,7 @@ router.get('/donor/award/:id', async function (req, res) {
 })
 
 router.post('/donor/award/:id', async function (req, res){
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
 
@@ -62,7 +66,7 @@ router.post('/donor/award/:id', async function (req, res){
 })
 
 router.get('/restrict/:id', async (req, res) => {
-    if(!await panel.checkPermission(admin.privileges, permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, `/users/${req.params.id}/edit`)
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
 
@@ -71,7 +75,7 @@ router.get('/restrict/:id', async (req, res) => {
 })
 
 router.post('/restrict/:id', async (req, res) => {
-    if(!await panel.checkPermission(admin.privileges, permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
     
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
@@ -79,7 +83,7 @@ router.post('/restrict/:id', async (req, res) => {
     const { reason } = req.body
     const time = Math.round(Date.now() / 1000)
 
-    if(await panel.checkPermission(user[0].privileges, permissions.UserPublic)){
+    if(user[0].privileges & permissions.UserPublic){
         request(`UPDATE users SET privileges = ${permissions.UserNormal}, ban_datetime = ${time} WHERE id = ${user[0].id}`)
         panel.addLog(admin.id, `Restricted ${user[0].username}: ${reason}`)
         panel.addNote(user[0].id, `has been restricted by ${admin.username} for: ${reason}`)
@@ -93,7 +97,7 @@ router.post('/restrict/:id', async (req, res) => {
 })
 
 router.get('/ban/:id', async (req, res) => {
-    if(!await panel.checkPermission(admin.privileges, permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, `/users/${req.params.id}/edit`)
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
 
@@ -102,7 +106,7 @@ router.get('/ban/:id', async (req, res) => {
 })
 
 router.post('/ban/:id', async (req, res) => {
-    if(!await panel.checkPermission(admin.privileges, permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
+    if(!(admin.privileges & permissions.BanUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
     
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
@@ -110,21 +114,21 @@ router.post('/ban/:id', async (req, res) => {
     const { reason } = req.body
     const time = Math.round(Date.now() / 1000)
 
-    if(await panel.checkPermission(user[0].privileges, permissions.UserNormal)){
+    if(user[0].privileges & permissions.UserNormal){
         request(`UPDATE users SET privileges = ${permissions.NoPriv}, ban_datetime = ${time} WHERE id = ${user[0].id}`)
         panel.addLog(admin.id, `Banned ${user[0].username}: ${reason}`)
         panel.addNote(user[0].id, `has been banned by ${admin.username} for: ${reason}`)
-        return panel.alert(req, res, 'success', 'User banned', `/users/${req.params.id}/edit`)
+        panel.alert(req, res, 'success', 'User banned', `/users/${req.params.id}/edit`)
     } else {
         request(`UPDATE users SET privileges = ${permissions.UserNormal + permissions.UserPublic}, ban_datetime = 0 WHERE id = ${user[0].id}`)
         panel.addLog(admin.id, `Unbanned ${user[0].username}`)
         panel.addNote(user[0].id, `has been unbanned by ${admin.username}`)
-        return panel.alert(req, res, 'success', 'User unbanned', `/users/${req.params.id}/edit`)
+        panel.alert(req, res, 'success', 'User unbanned', `/users/${req.params.id}/edit`)
     }
 })
 
 router.get('/wipe/:id', async (req, res) => {
-    if(!await panel.checkPermission(admin.privileges, permissions.WipeUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, `/users/${req.params.id}/edit`)
+    if(!(admin.privileges & permissions.WipeUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, `/users/${req.params.id}/edit`)
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
 
@@ -133,7 +137,7 @@ router.get('/wipe/:id', async (req, res) => {
 })
 
 router.post('/wipe/:id', async (req, res) => {
-    if(!await panel.checkPermission(admin.privileges, permissions.WipeUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
+    if(!(admin.privileges & permissions.WipeUsers)) return panel.alert(req, res, 'danger', errors.PERMISSIONS_MISSING, '/errors/403')
 
     let user = await request(`SELECT * FROM users WHERE id = ${req.params.id}`)
     if(user.length == 0) return panel.alert(req, res, 'danger', errors.USER_NOT_FOUND, '/users')
@@ -157,7 +161,7 @@ router.post('/wipe/:id', async (req, res) => {
         panel.addNote(user[0].id, `has been wiped by ${admin.username} ${mode != -1 ? "on " + modeNames[mode] + " " : ""}(${modNames[mod]})`)
     }
 
-    return panel.alert(req, res, 'success', 'User wiped', `/users/${req.params.id}/edit`)
+    panel.alert(req, res, 'success', 'User wiped', `/users/${req.params.id}/edit`)
 })
 
 module.exports = router

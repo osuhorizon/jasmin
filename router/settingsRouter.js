@@ -1,12 +1,12 @@
 const { Router } = require('express')
 const { request, prepared } = require('../helper/database')
-const { alert, checkPermission } = require('../helper/functions')
+const { alert } = require('../helper/functions')
 const permissions = require('../helper/permissions')
 
 const router = new Router()
 
 router.get('/bancho', async (req, res) => {
-    if(!await checkPermission(res.locals.session.user.privileges, permissions.ManageServers)) return res.redirect('/errors/403')
+    if(!(res.locals.session.user.privileges & permissions.ManageServers)) return res.redirect('/errors/403')
     res.locals.title = 'Bancho';
 
     const values = await request('SELECT * FROM bancho_settings')
@@ -21,7 +21,7 @@ router.get('/bancho', async (req, res) => {
 })
 
 router.post('/bancho', async (req, res) => {
-    if(!await checkPermission(res.locals.session.user.privileges, permissions.ManageServers)) return res.redirect('/errors/403')
+    if(!(res.locals.session.user.privileges & permissions.ManageServers)) return res.redirect('/errors/403')
     const { maintenance, icon, login } = req.body
 
     request(`UPDATE bancho_settings SET value_int = ${maintenance} WHERE id = 1`)
@@ -32,7 +32,7 @@ router.post('/bancho', async (req, res) => {
 })
 
 router.get('/system', async (req, res) => {
-    if(!await checkPermission(res.locals.session.user.privileges, permissions.ManageSettings)) return res.redirect('/errors/403')
+    if(!(res.locals.session.user.privileges & permissions.ManageSettings)) return res.redirect('/errors/403')
     res.locals.title = 'System';
 
     const values = await request('SELECT * FROM system_settings')
@@ -49,7 +49,7 @@ router.get('/system', async (req, res) => {
 })
 
 router.post('/system', async (req, res) => {
-    if(!await checkPermission(res.locals.session.user.privileges, permissions.ManageSettings)) return res.redirect('/errors/403')
+    if(!(res.locals.session.user.privileges & permissions.ManageSettings)) return res.redirect('/errors/403')
     const { webMaintenance, banchoMaintenance, globalAlert, homeAlert, register } = req.body
 
     request(`UPDATE system_settings SET value_int = ${webMaintenance} WHERE id = 1`)
